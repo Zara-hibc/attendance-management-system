@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Attendance Manager - Attendance Management System</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <i class="fa-solid fa-shield-halved"></i>
+            <span>Attendance Manager</span>
+        </div>
+        <nav class="sidebar-nav">
+            <a href="#" class="nav-link active" data-tab="staffs">
+                <i class="fa-solid fa-users"></i>
+                <span>Staffs</span>
+                <span class="badge" id="staff-count-badge">12</span>
+            </a>
+            <a href="#" class="nav-link" data-tab="attendance">
+                <i class="fa-solid fa-calendar-check"></i>
+                <span>Attendance Records</span>
+            </a>
+            <a href="#" class="nav-link" data-tab="leave">
+                <i class="fa-solid fa-clipboard-list"></i>
+                <span>Leave Summary</span>
+            </a>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Header -->
+        <header class="main-header">
+            <h2 id="page-title">Staffs</h2>
+            <div class="header-right">
+                <span id="current-date" class="current-date"></span>
+                <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Toggle theme" title="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
+            </div>
+        </header>
+
+        <!-- Staffs Tab -->
+        <div id="staffs-tab" class="tab-content active">
+            <div class="top-bar">
+                <div class="search-box">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="staff-search" placeholder="Search by ID, name, department, or role...">
+                </div>
+                <button type="button" id="add-staff-btn" class="btn btn-primary">
+                    <i class="fa-solid fa-plus"></i> Add Staff
+                </button>
+            </div>
+
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Total Staff</span>
+                        <span class="stat-value" id="total-staff-count">12</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-layer-group"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Slab 1 (&lt; 1 Year)</span>
+                        <span class="stat-value" id="slab1-count">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-award"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Slab 2 (1–5 Years)</span>
+                        <span class="stat-value" id="slab2-count">0</span>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fa-solid fa-medal"></i>
+                    </div>
+                    <div class="stat-info">
+                        <span class="stat-label">Slab 3 (5+ Years)</span>
+                        <span class="stat-value" id="slab3-count">0</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <table id="staffs-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Emp ID</th>
+                            <th>Name</th>
+                            <th>Department</th>
+                            <th>Role</th>
+                            <th>Join Date</th>
+                            <th>Slab</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="staffs-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Attendance Records Tab -->
+        <div id="attendance-tab" class="tab-content">
+            <div class="attendance-controls">
+                <div class="control-group">
+                    <label for="attendance-date">Date</label>
+                    <input type="date" id="attendance-date">
+                </div>
+                <div class="control-group">
+                    <label for="attendance-month">Month</label>
+                    <input type="month" id="attendance-month">
+                </div>
+                <div class="view-toggle">
+                    <button type="button" id="daily-view-btn" class="btn btn-primary">
+                        <i class="fa-solid fa-calendar-day"></i> Daily Entry
+                    </button>
+                    <button type="button" id="monthly-view-btn" class="btn btn-outline">
+                        <i class="fa-solid fa-chart-column"></i> Monthly Summary
+                    </button>
+                </div>
+            </div>
+
+            <div id="daily-entry-section">
+                <div class="info-banner">
+                    <i class="fa-solid fa-circle-info"></i>
+                    <span>Select a date to log staff arrival and departure times, attendance status, and leave types. Worked minutes are computed automatically.</span>
+                </div>
+                <div class="table-container">
+                    <table id="attendance-daily-table">
+                        <thead>
+                            <tr>
+                                <th>Emp ID</th>
+                                <th>Name</th>
+                                <th>Arrival Time</th>
+                                <th>Departure Time</th>
+                                <th>Status</th>
+                                <th>Leave Type</th>
+                                <th>Worked Min</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-daily-tbody"></tbody>
+                    </table>
+                </div>
+                <button type="button" id="save-attendance-btn" class="btn btn-primary" style="width: 100%; margin-top: 16px;">
+                    <i class="fa-solid fa-floppy-disk"></i> Save Attendance
+                </button>
+            </div>
+
+            <div id="monthly-summary-section" style="display: none;">
+                <div class="table-container">
+                    <table id="attendance-monthly-table">
+                        <thead>
+                            <tr>
+                                <th>Emp ID</th>
+                                <th>Name</th>
+                                <th>Working Days</th>
+                                <th>Required Hrs</th>
+                                <th>Total Worked Hrs</th>
+                                <th>Shortage Hrs</th>
+                                <th>Overtime Hrs</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attendance-monthly-tbody"></tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Leave Summary Tab -->
+        <div id="leave-tab" class="tab-content">
+            <div class="controls-bar">
+                <div class="control-group">
+                    <label for="leave-year">Year</label>
+                    <input type="number" id="leave-year" value="2027" min="2025" max="2030">
+                </div>
+                <button type="button" id="export-leave-btn" class="btn btn-outline">
+                    <i class="fa-solid fa-file-export"></i> Export CSV
+                </button>
+            </div>
+
+            <div class="leave-policy-card">
+                <h3>Leave Entitlement Structure (2027)</h3>
+                <table class="policy-table">
+                    <thead>
+                        <tr>
+                            <th>Slab</th>
+                            <th>Service Period</th>
+                            <th>Annual</th>
+                            <th>Sick</th>
+                            <th>Pregnancy</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Slab 1</td>
+                            <td>&lt; 1 Year</td>
+                            <td>15</td>
+                            <td>15</td>
+                            <td>60</td>
+                            <td>90</td>
+                        </tr>
+                        <tr>
+                            <td>Slab 2</td>
+                            <td>1–5 Years</td>
+                            <td>20</td>
+                            <td>30</td>
+                            <td>60</td>
+                            <td>110</td>
+                        </tr>
+                        <tr>
+                            <td>Slab 3</td>
+                            <td>5+ Years</td>
+                            <td>30</td>
+                            <td>30</td>
+                            <td>60</td>
+                            <td>120</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="table-scroll-container">
+                <table id="leave-summary-table">
+                    <thead>
+                        <tr>
+                            <th>Staff Name</th>
+                            <th>ID</th>
+                            <th colspan="2" class="month-header">Jan</th>
+                            <th colspan="2" class="month-header">Feb</th>
+                            <th colspan="2" class="month-header">Mar</th>
+                            <th colspan="2" class="month-header">Apr</th>
+                            <th colspan="2" class="month-header">May</th>
+                            <th colspan="2" class="month-header">Jun</th>
+                            <th colspan="2" class="month-header">Jul</th>
+                            <th colspan="2" class="month-header">Aug</th>
+                            <th colspan="2" class="month-header">Sep</th>
+                            <th colspan="2" class="month-header">Oct</th>
+                            <th colspan="2" class="month-header">Nov</th>
+                            <th colspan="2" class="month-header">Dec</th>
+                            <th class="summary-header">Total Eligible</th>
+                            <th class="summary-header">Total Leave</th>
+                            <th class="summary-header">Claimed</th>
+                            <th class="summary-header">Balance</th>
+                            <th class="summary-header">Extra Bonus</th>
+                        </tr>
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th>Total</th>
+                            <th>Claimed</th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody id="leave-summary-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <!-- Staff Modal -->
+    <div id="staff-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Add Staff</h3>
+                <button type="button" class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="staff-form">
+                    <input type="hidden" id="staff-form-mode" value="add">
+                    <input type="hidden" id="staff-edit-index" value="">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="staff-emp-id">Emp ID</label>
+                            <input type="text" id="staff-emp-id" placeholder="Emp ID" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="staff-name">Full Name</label>
+                            <input type="text" id="staff-name" placeholder="Full Name" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="staff-department">Department</label>
+                            <select id="staff-department" required>
+                                <option value="">Select Department</option>
+                                <option value="General Management">General Management</option>
+                                <option value="Business Unit">Business Unit</option>
+                                <option value="Administration Unit">Administration Unit</option>
+                                <option value="Student Relationships &amp; Assessment">Student Relationships &amp; Assessment</option>
+                                <option value="Academic Unit">Academic Unit</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="staff-role">Role</label>
+                            <input type="text" id="staff-role" placeholder="Role" required>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="staff-join-date">Join Date</label>
+                            <input type="date" id="staff-join-date" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="staff-gender">Gender</label>
+                            <select id="staff-gender" required>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline modal-cancel">Cancel</button>
+                <button type="button" id="staff-save-btn" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Leave Modal -->
+    <div id="leave-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Record Leave</h3>
+                <button type="button" class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="leave-form">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="leave-staff-select">Staff</label>
+                            <select id="leave-staff-select" required></select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leave-month-select">Month</label>
+                            <select id="leave-month-select" required>
+                                <option value="1">Jan</option>
+                                <option value="2">Feb</option>
+                                <option value="3">Mar</option>
+                                <option value="4">Apr</option>
+                                <option value="5">May</option>
+                                <option value="6">Jun</option>
+                                <option value="7">Jul</option>
+                                <option value="8">Aug</option>
+                                <option value="9">Sep</option>
+                                <option value="10">Oct</option>
+                                <option value="11">Nov</option>
+                                <option value="12">Dec</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="leave-type-select">Leave Type</label>
+                            <select id="leave-type-select" required>
+                                <option value="Annual Paid">Annual Paid</option>
+                                <option value="Sick Paid">Sick Paid</option>
+                                <option value="Pregnancy Paid">Pregnancy Paid</option>
+                                <option value="Unpaid">Unpaid</option>
+                                <option value="Extra Bonus">Extra Bonus</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="leave-days">Days</label>
+                            <input type="number" id="leave-days" min="0.5" step="0.5" value="1" required>
+                        </div>
+                    </div>
+                    <div class="form-group checkbox-group">
+                        <label class="checkbox-label" for="leave-claimed">
+                            <input type="checkbox" id="leave-claimed">
+                            <span>Claimed</span>
+                        </label>
+                    </div>
+                    <div class="form-group">
+                        <label for="leave-notes">Notes</label>
+                        <textarea id="leave-notes" rows="3" placeholder="Enter notes..."></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline modal-cancel">Cancel</button>
+                <button type="button" id="leave-save-btn" class="btn btn-primary">Save</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Confirm Modal -->
+    <div id="confirm-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirm Action</h3>
+                <button type="button" class="modal-close" aria-label="Close modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p id="confirm-message">Are you sure you want to proceed?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline modal-cancel">Cancel</button>
+                <button type="button" id="confirm-yes-btn" class="btn btn-danger">Confirm</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Container -->
+    <div id="toast-container" class="toast-container"></div>
+
+    <script src="app.js"></script>
+</body>
+</html>
