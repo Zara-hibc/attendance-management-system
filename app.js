@@ -30,18 +30,19 @@ const TAB_TITLES = {
 };
 
 const PRE_POPULATED_STAFF = [
-    { id: 'H5', name: 'MS. ZARA', department: 'General Management', role: 'GM', joinDate: '2024-03-01', gender: 'Female' },
-    { id: 'H10', name: 'MR. AFHAR', department: 'Business Unit', role: 'Staff', joinDate: '2025-06-15', gender: 'Male' },
-    { id: 'H13', name: 'MS. AMAANI', department: 'Administration Unit', role: 'Head of Administration', joinDate: '2024-01-10', gender: 'Female' },
-    { id: 'H17', name: 'MS. SASNA', department: 'Business Unit', role: 'Unit Head', joinDate: '2025-01-20', gender: 'Female' },
-    { id: 'H18', name: 'MS. ALIZA', department: 'Student Relationships & Assessment', role: 'Head of Quality', joinDate: '2024-06-01', gender: 'Female' },
-    { id: 'H31', name: 'MS. AALIYA', department: 'Academic Unit', role: 'Head of Academic', joinDate: '2024-02-15', gender: 'Female' },
-    { id: 'H44', name: 'MS. ANFA', department: 'Academic Unit', role: 'Staff', joinDate: '2026-04-01', gender: 'Female' },
+{
+    id: 'H5', name: 'MS. ZARA', department: 'General Management', role: 'GM', joinDate: '2022-09-01', gender: 'Female' },
+    { id: 'H10', name: 'MR. AFHAR', department: 'Business Unit', role: 'Staff', joinDate: '2024-09-01', gender: 'Male' },
+    { id: 'H13', name: 'MS. AMAANI', department: 'Administration Unit', role: 'Head of Administration', joinDate: '2024-09-01', gender: 'Female' },
+    { id: 'H17', name: 'MS. SASNA', department: 'Business Unit', role: 'Unit Head', joinDate: '2024-10-01', gender: 'Female' },
+    { id: 'H18', name: 'MS. ALIZA', department: 'Student Relationships & Assessment', role: 'Head of Quality', joinDate: '2024-10-01', gender: 'Female' },
+    { id: 'H31', name: 'MS. AALIYA', department: 'Academic Unit', role: 'Head of Academic', joinDate: '2022-09-01', gender: 'Female' },
+    { id: 'H44', name: 'MS. ANFA', department: 'Academic Unit', role: 'Staff', joinDate: '2025-07-01', gender: 'Female' },
     { id: 'H50', name: 'MS. AAMAARA', department: 'Student Relationships & Assessment', role: 'Staff', joinDate: '2025-08-01', gender: 'Female' },
-    { id: 'H61', name: 'MS. AMAYA', department: 'Business Unit', role: 'Staff', joinDate: '2026-06-10', gender: 'Female' },
+    { id: 'H61', name: 'MS. AMAYA', department: 'Business Unit', role: 'Staff', joinDate: '2025-12-01', gender: 'Female' },
     { id: 'HL18', name: 'MR. N. HANAN', department: 'Business Unit', role: 'Staff', joinDate: '2025-03-01', gender: 'Male' },
-    { id: 'H64', name: 'MS. USAIRIYA', department: 'Student Relationships & Assessment', role: 'Staff', joinDate: '2025-11-01', gender: 'Female' },
-    { id: 'H65', name: 'MS. AZEEM', department: 'Administration Unit', role: 'Staff', joinDate: '2026-08-01', gender: 'Male' }
+    { id: 'H64', name: 'MS. USAIRIYA', department: 'Student Relationships & Assessment', role: 'Staff', joinDate: '2026-04-01', gender: 'Female' },
+    { id: 'H65', name: 'MS. AZEEM', department: 'Administration Unit', role: 'Staff', joinDate: '2026-04-01', gender: 'Male' }
 ];
 
 // ============================================================================
